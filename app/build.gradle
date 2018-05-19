@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    compileSdkVersion 27
+    sourceSets {
+        main {
+            jniLibs.srcDirs 'libs'
+        }
+    }
+    defaultConfig {
+        applicationId "cn.carl.demo.xcodescanner"
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 16
+        versionName "1.0.0"
+        multiDexEnabled true
+        //这里只使用了 armeabi 架构的 定位sdk
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.tencent.map:tencent-map-nav-sdk:4.0.3.15'
+
+    api project(':zbar')
+//    implementation 'cn.simonlee.xcodescanner:zbar:1.1.5'
+}
